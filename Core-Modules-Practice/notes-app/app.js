@@ -33,7 +33,10 @@ const readNotes = require('./util.js')
 yargs.command({
     command: 'add',
     describe: 'hello this is add',
-    handler: function(){
+    builder: {
+        describe: 'Note title'
+    }
+    handler: function(argv){
         console.log('command add')
     }
 })
