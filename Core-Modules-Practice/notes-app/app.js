@@ -35,9 +35,9 @@ yargs.command({
     describe: 'hello this is add',
     builder: {
         describe: 'Note title'
-    }
+    },
     handler: function(argv){
-        console.log('command add')
+        console.log('command add',argv)
     }
 })
 
