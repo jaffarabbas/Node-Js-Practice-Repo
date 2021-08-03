@@ -1,12 +1,15 @@
 const express = require('express');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 
-const dir1 = path.join(__dirname, '../public')
-app.set('view engine', 'hbs');
+const dir1 = path.join(__dirname, '../templates/views')
+const partialPath = path.join(__dirname, '../templates/partials')
 
-app.use(express.static(dir1))
+app.set('view engine', 'hbs');
+app.set('views', dir1);
+hbs.registerPartials(partialPath)
 
 app.get('', (req, res) => {
     res.render('index',{
@@ -16,7 +19,9 @@ app.get('', (req, res) => {
 })
 
 app.get('/about' , (req , res) => {
-    res.send('Hello about')
+    res.render('about',{
+        about:'my name is jaffar'
+    })
 })
 
 app.get('/contact' , (req , res) => {
