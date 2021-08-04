@@ -24,6 +24,10 @@ app.get('/about' , (req , res) => {
     })
 })
 
+app.get('*',(req , res) => {
+    res.send('404')
+})
+
 app.get('/contact' , (req , res) => {
     res.send('Hello contact')
 })
