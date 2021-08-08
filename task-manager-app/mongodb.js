@@ -12,29 +12,35 @@ MongoClient.connect(connectionUrl, {useNewUrlParser: true} , (error , client) =>
 
     const db = client.db(databaseName)
 
-    db.collection('user').insertOne({
-        _id: id,
-        name: 'kooo',
-        age: 21
-    }, (err, result) => {
-        if(err) {
-            return console.log("Error: ",err)
-        }
-        console.log(result.insertedId.toHexString())
-    })
-    // db.collection('users').insertMany(
-    //     [
-    //         {
-    //             name: 'hel'
-    //         },
-    //         {
-    //             name: 'asdasd'
-    //         }
-    //     ],(err,result) => {
-    //         if(err) {
-    //             return console.log(err)
-    //         }
-    //         console.log(result.ops)
+    //create
+    // db.collection('users').findOne({name : 'hel'}, (err, user) => {
+    //     if(err) {
+    //        return console.log('Unable to Find Error',err);
     //     }
-    // )
+
+    //     console.log(user)
+    // })
+
+    //find/read
+    // db.collection('users').find().toArray((err, user) => {
+    //     console.log(user[0]['name']);
+    // })
+
+    //update
+    // const Update = db.collection('users').updateOne({_id: new ObjectId("610aa132acfadceef69b7c1e")} , {
+    //     $set : {
+    //         name: 'jaffar'
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((err) => {
+    //     console.log(err);
+    // })
+
+    //Delete
+    db.collection('users').deleteOne({_id: new ObjectId("610aa132acfadceef69b7c1e")}).then((result) => {
+        console.log(result)
+    }).catch((err) => {
+        console.error(err);
+    })
 })
