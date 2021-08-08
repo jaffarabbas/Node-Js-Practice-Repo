@@ -38,9 +38,9 @@ MongoClient.connect(connectionUrl, {useNewUrlParser: true} , (error , client) =>
     // })
 
     //Delete
-    db.collection('users').deleteOne({_id: new ObjectId("610aa132acfadceef69b7c1e")}).then((result) => {
-        console.log(result)
-    }).catch((err) => {
-        console.error(err);
-    })
+    // db.collection('users').deleteOne({_id: new ObjectId("610aa132acfadceef69b7c1e")}).then((result) => {
+    //     console.log(result)
+    // }).catch((err) => {
+    //     console.error(err);
+    // })
 })
