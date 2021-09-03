@@ -1,0 +1,20 @@
+{
+  "name": "Promises_chaning_in_mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "promise_chainning.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1",
+    "mongoose": "^6.0.3",
+    "nodemon": "^2.0.12",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
