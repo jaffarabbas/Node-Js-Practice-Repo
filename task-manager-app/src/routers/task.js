@@ -50,8 +50,10 @@ router.patch('/tasks/:id', async (req, res) => {
     }
 
     try{
-        const task = await Task.findfindByIdAndUpdate(req.params.id, {new : true , runValidators: true});
-
+        //const task = await Task.findfindByIdAndUpdate(req.params.id, {new : true , runValidators: true});
+        const task = await Task.findById(req.params.id);
+        updates.forEach(update => task[update] = req.body[user]);
+        await task.save();
         if(!task){
             return res.status(404).send()
         }
@@ -61,6 +63,7 @@ router.patch('/tasks/:id', async (req, res) => {
         res.status(500).send(err)
     }
 })
+
 //delete a task
 router.delete('/tasks/:id', async (req, res) => {
     try{
