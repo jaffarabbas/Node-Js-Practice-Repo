@@ -24,7 +24,7 @@ app.listen(port,()=>{
     console.log('Server start at ',port);
 })
 
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 //genrating json web token
 
