@@ -1,5 +1,5 @@
-const User = require('../models/User');
 const router = require('express').Router();
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 //Update a User 
@@ -64,6 +64,26 @@ router.put("/:id/follow", async (req, res) => {
                 res.status(403).json("You already followed this user");
             }
         }catch(err){
+            res.status(500).json(err);
+        }
+    }else{
+        res.status(403).json("You cannot unfollow yourself")
+    }
+})
+//Unfollow a User
+router.put("/:id/unfollow", async (req, res) => {
+    if(req.body.userId !== req.params.id){
+        try{
+            const UserToBeFollowed = await User.findById(req.params.id);
+            const CurrentUser = await User.findById(req.body.userId);
+            if(UserToBeFollowed.followers.includes(req.body.userId)){
+                await UserToBeFollowed.updateOne({$pull: {followers : req.body.userId}});
+                await CurrentUser.updateOne({$pull: {followings : req.params.id}});
+                res.status(200).json("User has unfollowed successfully");
+            }else{
+                res.status(403).json("You cannot unfollow this user");
+            }
+        }catch(err){
             console.log(err);
             res.status(500).json(err);
         }
@@ -71,6 +91,4 @@ router.put("/:id/follow", async (req, res) => {
         res.status(403).json("You cannot follow yourself")
     }
 })
-//Unfollow a User
-
 module.exports = router
