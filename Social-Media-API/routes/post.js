@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
+const User = require('../models/User');
 //Create a Post
 router.post('/', async (req, res) => {
     try{
@@ -24,7 +25,7 @@ router.put('/:id', async (req, res)=>{
     }catch(err){
         res.status(500).json(err);
     }
-})
+});
 //Delete a Post
 router.delete('/:id', async (req, res)=>{
     try{
@@ -55,9 +56,32 @@ router.put('/:id/like', async (req, res) => {
         console.log(err)
         res.status(500).json(err);
     }
-})
+});
 //Get a Post
+router.get('/:id', async (req, res)=>{
+    try{
+        const GetPost = await Post.findById(req.params.id);
+        !GetPost && res.status(404).json("Post Not Found");
+        res.status(200).json(GetPost);
+    }catch(err){
+        res.status(500).send(err);
+    }
+});
 //Get Timeline Post
-
+router.get('/timeline/all', async (req, res) => {
+    try{
+        const CurrentUser = await User.findById(req.body.userId);
+        const CurrentUserPost = await Post.find({ userId: CurrentUser._id});
+        const FollowersPost = await Promise.all(
+            CurrentUser.followings.map( FollowerId => {
+                return Post.find({ userId: FollowerId });
+            })
+        )
+        res.json(CurrentUserPost.concat(...FollowersPost));     
+    }catch(err){
+        console.log(err)
+        res.status(500).send(err);
+    }
+});
 
 module.exports = router
