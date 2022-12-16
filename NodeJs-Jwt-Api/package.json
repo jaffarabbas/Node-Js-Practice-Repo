@@ -1,0 +1,24 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "api for anuglar app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaffarabbas/Node-Js-Practice-Repo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaffarabbas/Node-Js-Practice-Repo/issues"
+  },
+  "homepage": "https://github.com/jaffarabbas/Node-Js-Practice-Repo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
