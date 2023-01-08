@@ -1,28 +1,37 @@
-'use-strict';
-
+// 'use-strict';
+require("msnodesqlv8");
 const dotenv = require('dotenv');
 const assert = require('assert');
 
 dotenv.config()
 
-const {PORT,HOST,HOST_URL,SQL_DATABASE,SQL_SERVER} = process.env;
+const { PORT, HOST, HOST_URL, SQL_DATABASE, SQL_SERVER } = process.env;
 
-assert(PORT, 'PORT is required');
-assert(HOST, 'HOST is required');
+// assert(PORT, 'PORT is required');
+// assert(HOST, 'HOST is required');
 
-module.exports = {
-    port: PORT,
-    host: HOST,
-    host_url: HOST_URL,
-    sql:{
-        server: SQL_SERVER,
-        database: SQL_DATABASE,
-        options:{
-            encrypt: sqlEncrypt,
-            enableArithAbort: true,
-            trustedconnection: true
-        }
-    }
+// const config = {
+//     server: 'DESKTOP-44LIK56',
+//     database: 'emp',
+//     options: {
+//         enableArithAbort: true,
+//         trustedconnection: true,
+//         instancename: 'MSSQLSERVER',
+//     },
+//     port: 1433,
+// };
+
+const config = {
+    server: 'DESKTOP-44LIK56',
+    database: 'emp',
+    user:'darklord',
+    password:'',
+    options: {
+        trustedConnection: true,
+        trustServerCertificate: true,
+        instancename: 'MSSQLSERVER',
+        // driver: "msnodesqlv8",
+    },
+    PORT: 1433,
 };
-
 module.exports = config;
