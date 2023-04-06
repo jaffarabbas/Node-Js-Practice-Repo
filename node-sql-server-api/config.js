@@ -1,7 +1,8 @@
 // 'use-strict';
-require("msnodesqlv8");
+const sql = require("mssql/msnodesqlv8");
 const dotenv = require('dotenv');
 const assert = require('assert');
+
 
 dotenv.config()
 
