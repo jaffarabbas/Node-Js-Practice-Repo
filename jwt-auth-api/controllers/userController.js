@@ -21,7 +21,9 @@ class UserController{
                             tc:tc
                         });
                         await newUser.save();
-                        return res.status(201).json({ message: "User created successfully" });
+                        const user = await UserModel.findOne({ email: email });
+                        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+                        return res.status(201).json({ message: "User created successfully", token: token });
                     }catch(err){
                         return res.status(400).json({ message: err });
                     }
@@ -32,6 +34,46 @@ class UserController{
                 return res.status(400).json({ message: "All fields are required" });
             }
         }
+    }
+
+    static userLogin = async (req, res) => {
+        const {email, password} = req.body;
+        if(email && password){
+            const user = await UserModel.findOne({ email: email });
+            if(user != null){
+                const isMatch = await bcrypt.compare(password, user.password);
+                if((user.email === email) && isMatch){
+                    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+                    return res.status(200).json({ message: "User logged in successfully", token: token});
+                }else{
+                    return res.status(400).json({ message: "Invalid credentials" });
+                }
+            }else{
+                return res.status(400).json({ message: "User does not exist" });
+            }
+        }else{
+            return res.status(400).json({ message: "All fields are required" });
+        }
+    }
+
+    static changeUserPassword = async (req, res) => {
+        let { password, password_confirmation } = req.body;
+        if(password && password_confirmation){
+            if(password !== password_confirmation){
+                return res.status(400).json({ message: "Passwords do not match" });
+            }else{
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(password, salt);
+                await UserModel.findByIdAndUpdate(req.user._id, {$set: {password: hashedPassword}});
+                return res.status(200).json({ message: "Password changed successfully" });
+            }
+        }else{
+            return res.status(400).json({ message: "All fields are required" });
+        }
+    }
+
+    static loggedInUser = async (req, res) => {
+        return res.status(200).json({ user: req.user });
     }
 }
 
