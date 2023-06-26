@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './config/connectdb.js';
 import userRoutes from './routes/userRoutes.js';
+import blogRouter from './routes/blogRouter.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 //routes
 app.use('/api/user', userRoutes);
+app.use('/api/blogs/',blogRouter);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
