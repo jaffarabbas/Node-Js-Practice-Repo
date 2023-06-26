@@ -19,7 +19,8 @@ class UserController{
                             name:name,
                             email:email,
                             password: hashedPassword,
-                            tc:tc
+                            tc:tc,
+                            blogs: [],
                         });
                         await newUser.save();
                         const user = await UserModel.findOne({ email: email });
