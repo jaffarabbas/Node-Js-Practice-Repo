@@ -8,7 +8,7 @@ var checkToken = async (req, res, next) => {
         try{
             token = authorization.split(" ")[1];
             const { id } = jwt.verify(token, process.env.SECRET_KEY);
-            req.user = await UserModel.findById(id).select("-password"); 
+            req.user = await UserModel.findById(id).select("-password");  
             next();
         }catch(err){
             return res.status(401).json({ message: "Unauthorized" });
