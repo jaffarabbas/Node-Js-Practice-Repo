@@ -36,6 +36,7 @@ export const add = async (req, res) => {
     let existingUser;
     try{
         existingUser = await UserModel.findById(user);
+        console.log(existingUser);
     }catch(err){
         return res.status(500).json({ message: err.message });
     }
