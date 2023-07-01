@@ -53,8 +53,8 @@ export const add = async (req, res) => {
         const session = await mongoose.startSession();
         session.startTransaction();
         await blog.save({session});
-        UserModel.blogs.push(blog);
-        await UserModel.save({session});
+        existingUser.blogs.push(blog);
+        await existingUser.save({session});
         await session.commitTransaction();
     }catch(err){
         return res.status(500).json({ message: err.message });
@@ -90,15 +90,17 @@ export const deleteBlog = async (req, res) => {
     let blogId = req.params.id;
     let blog;
     try{
+        console.log(blogId);
         blog = await Blog.findByIdAndDelete(blogId).populate("user");
-        await blog.UserModel.blogs.pull(blog);
+        console.log(blog);
+        await blog.user.blogs.pull(blog);
     }catch(err){
         return res.status(500).json({ message: err.message });
     }
     if(!blog){
         return res.status(404).json({ message: "Blog not found" });
     }
-    return res.status(200).json({blog});
+    return res.status(200).json({"message": "Blog deleted successfully"});
 }
 
 //get by user id
