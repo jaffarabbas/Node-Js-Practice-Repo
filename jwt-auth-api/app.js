@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
-console.log(DATABASE_URL);
+
 //CORS 
 app.use(cors());
 // Connect to database
