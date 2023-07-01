@@ -4,20 +4,12 @@ import checkToken from "../middlewares/auth-middleware.js";
 
 const blogRouter = express.Router();
 
-//middleware
-blogRouter.use("/", checkToken);
-blogRouter.use("/add", checkToken);
-blogRouter.use("/update/:id",checkToken);
-blogRouter.use("/:id",checkToken);
-blogRouter.use("/:id",checkToken);
-blogRouter.use("/user/:id",checkToken);
-
 //private
-blogRouter.get("/", getAllBlogs);
-blogRouter.post("/add", add);
-blogRouter.put("/update/:id",update);
-blogRouter.get("/:id",getById);
-blogRouter.delete("/:id",deleteBlog);
-blogRouter.get("/user/:id",getBlogsByUserId);
+blogRouter.get("/", checkToken,getAllBlogs);
+blogRouter.post("/add", checkToken , add);
+blogRouter.put("/update/:id", checkToken ,update);
+blogRouter.get("/:id", checkToken ,getById);
+blogRouter.delete("/:id", checkToken ,deleteBlog);
+blogRouter.get("/user/:id", checkToken ,getBlogsByUserId);
 
 export default blogRouter;
