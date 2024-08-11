@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    image: jaffarabbas/mssql-app
+    container_name: jaffar-mssql-app
+    ports:
+      - "2000:2000"
+    environment:
+      - PORT=2000
+      - REDIS_HOST=redis-stack
+      - REDIS_PORT=6379
+    networks:
+      - darklord
+    stdin_open: true  # Equivalent to -i (interactive)
+    tty: true         # Equivalent to -t (TTY)
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-server
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=JAFFARempire@1399
+    volumes:
+      - sqlserver_data:/var/opt/mssql  # Persist SQL Server data
+    networks:
+      - darklord
+    stdin_open: true  # Equivalent to -i (interactive)
+    tty: true         # Equivalent to -t (TTY)
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis-stack
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    networks:
+      - darklord
+
+networks:
+  darklord:
+    driver: bridge
+
+volumes:
+  sqlserver_data:
