@@ -22,7 +22,7 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=JAFFARempire@1399
+      - SA_PASSWORD=jaffarAb@123
     volumes:
       - sqlserver_data:/var/opt/mssql  # Persist SQL Server data
     networks:

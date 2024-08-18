@@ -7,7 +7,7 @@ const port = process.env.PORT || 9000
 
 const config = {
     user: 'sa',
-    password: '',
+    password: 'jaffarAb@123',
     server: 'mssql-server',
     database: 'DB_JEWELSITE',
     options: {
